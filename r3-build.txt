@@ -1,0 +1,16 @@
+
+> chip-in-page@0.0.0 build
+> tsc --noEmit -p tsconfig.json && vite build
+
+(node:3498580) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+vite v7.3.6 building client environment for production...
+transforming...
+✓ 433 modules transformed.
+rendering chunks...
+computing gzip size...
+../docs/index.html                   1.17 kB │ gzip:  0.57 kB
+../docs/assets/index-BnG56TD-.css    4.43 kB │ gzip:  1.52 kB
+../docs/assets/ccip-BM_Cx7AJ.js      2.89 kB │ gzip:  1.33 kB
+../docs/assets/index-BypbNU7L.js   308.81 kB │ gzip: 93.88 kB
+✓ built in 5.17s

@@ -50,3 +50,7 @@ RPC_CORS mainnet=yes testnet=yes
 This host drops new TCP to `127.0.0.1`, so the local node was not reachable at `http://127.0.0.1:8545`. Anvil listened on a unix socket (`--network arc --chain-id 5042002 --hardfork arc:zero8`). A local proxy on the host address port 8545 forwarded JSON-RPC to that socket. Arc takes gas from the same balance `balanceOf` reports, and the page tests assert exact token deltas, so the proxy adds `gasUsed * effectiveGasPrice` back to the sender after each mined transaction. No contract or page source was edited.
 
 Deployed to `0x5FbDB2315678afecb367f032d93F642f64180aa3`. Chain id `5042002`. Vitest: 20 passed, 0 skipped.
+
+## Identity
+
+The decided GitHub account is `Gavinbombay` for R5 to resolve. The `⟦GITHUB_ACCOUNT⟧` slot in the page is left as written.
