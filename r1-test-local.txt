@@ -1,0 +1,106 @@
+No files changed, compilation skipped
+
+Ran 2 tests for test/ChipIn.t.sol:ChipInProbeTest
+[PASS] test_Probe_FundingReflectsInErc20Balance() (gas: 20443)
+[PASS] test_Probe_UsdcDecimalsIs6() (gas: 12748)
+Suite result: ok. 2 passed; 0 failed; 0 skipped; finished in 18.55ms (2.72ms CPU time)
+
+Ran 4 tests for test/ChipIn.t.sol:ChipInConstructorTest
+[PASS] test_Constructor_RevertsOnZeroCap() (gas: 59103)
+[PASS] test_Constructor_RevertsOnZeroDuration() (gas: 59109)
+[SKIP] test_Constructor_RevertsWhenUsdcHasNoCode() (gas: 0)
+[PASS] test_Constructor_SetsImmutables() (gas: 11228)
+Suite result: ok. 3 passed; 0 failed; 1 skipped; finished in 21.42ms (5.96ms CPU time)
+
+Ran 4 tests for test/ArcProbe.t.sol:ArcProbeTest
+[PASS] test_ArcProbe_DealMapsToErc20Balance() (gas: 15318)
+[PASS] test_ArcProbe_Erc20TransferMovesNativeBalance() (gas: 65416)
+[PASS] test_ArcProbe_UsdcDecimalsIs6() (gas: 12724)
+[PASS] test_ArcProbe_UsdcHasCode() (gas: 2973)
+Suite result: ok. 4 passed; 0 failed; 0 skipped; finished in 24.37ms (14.25ms CPU time)
+
+Ran 3 tests for test/ChipIn.t.sol:ChipInReentrancyTest
+[SKIP] test_Reentrancy_PayCannotReenter() (gas: 0)
+[SKIP] test_Reentrancy_RefundCannotReenter() (gas: 0)
+[SKIP] test_Reentrancy_ReleaseCannotReenter() (gas: 0)
+Suite result: ok. 0 passed; 0 failed; 3 skipped; finished in 7.54ms (249.89µs CPU time)
+
+Ran 17 tests for test/ChipIn.t.sol:ChipInCreateBillTest
+[PASS] test_CreateBill_AllowsDeadlineAtMaxDuration() (gas: 181577)
+[PASS] test_CreateBill_AllowsExactlyCap() (gas: 181510)
+[PASS] test_CreateBill_AllowsMaxShares() (gas: 1081664)
+[PASS] test_CreateBill_IdsAreSequentialFromOne() (gas: 471412)
+[PASS] test_CreateBill_OpenSharesAllowed() (gas: 241200)
+[PASS] test_CreateBill_PayeeMayAlsoBeAPayer() (gas: 246500)
+[PASS] test_CreateBill_RevertsOnDeadlineNow() (gas: 12705)
+[PASS] test_CreateBill_RevertsOnDeadlinePast() (gas: 13123)
+[PASS] test_CreateBill_RevertsOnDeadlineTooFar() (gas: 13620)
+[PASS] test_CreateBill_RevertsOnLengthMismatch() (gas: 13190)
+[PASS] test_CreateBill_RevertsOnNoShares() (gas: 11836)
+[PASS] test_CreateBill_RevertsOnTooManyShares() (gas: 26771)
+[PASS] test_CreateBill_RevertsOnZeroPayee() (gas: 10583)
+[PASS] test_CreateBill_RevertsOnZeroShare() (gas: 13526)
+[PASS] test_CreateBill_RevertsOverCap() (gas: 13797)
+[PASS] test_CreateBill_StoresFieldsAndEmits() (gas: 270571)
+[PASS] test_NoFunctionAcceptsNativeValue() (gas: 217661)
+Suite result: ok. 17 passed; 0 failed; 0 skipped; finished in 30.42ms (14.18ms CPU time)
+
+Ran 6 tests for test/ChipIn.t.sol:ChipInReleaseTest
+[PASS] test_Release_AfterDeadlineStillWorks() (gas: 514129)
+[PASS] test_Release_AnyoneCanCall_FundsStillGoToPayee() (gas: 519881)
+[PASS] test_Release_RevertsAlreadyReleased() (gas: 512101)
+[PASS] test_Release_RevertsNotFunded() (gas: 370458)
+[PASS] test_Release_RevertsOnUnknownBill() (gas: 15960)
+[PASS] test_Release_SendsTotalToPayeeAndEmits() (gas: 518804)
+Suite result: ok. 6 passed; 0 failed; 0 skipped; finished in 30.26ms (21.44ms CPU time)
+
+Ran 5 tests for test/ChipIn.t.sol:ChipInStateTest
+[PASS] test_DeadlineEdge_PayAndRefundAreComplementary() (gas: 367053)
+[PASS] test_Held_SumMatchesContractBalance() (gas: 1218389)
+[PASS] test_State_ExpiredAtDeadline() (gas: 262802)
+[PASS] test_State_OpenFundedReleased() (gas: 513646)
+[PASS] test_State_RevertsOnUnknownBill() (gas: 27473)
+Suite result: ok. 5 passed; 0 failed; 0 skipped; finished in 37.01ms (22.30ms CPU time)
+
+Ran 1 test for test/Gas.t.sol:ChipInGasTest
+[PASS] test_Gas_Figures() (gas: 1832477)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 15.82ms (11.70ms CPU time)
+
+Ran 9 tests for test/ChipIn.t.sol:ChipInRefundTest
+[PASS] test_Refund_AfterDeadlineReturnsContribution() (gas: 360344)
+[PASS] test_Refund_AtDeadlineExactlySucceeds() (gas: 348583)
+[PASS] test_Refund_ReducesHeld() (gas: 473855)
+[PASS] test_Refund_RevertsBeforeDeadline() (gas: 375348)
+[PASS] test_Refund_RevertsNothingToRefund() (gas: 377738)
+[PASS] test_Refund_RevertsOnUnknownBill() (gas: 15983)
+[PASS] test_Refund_RevertsSecondTime() (gas: 353339)
+[PASS] test_Refund_RevertsWhenFunded() (gas: 470339)
+[PASS] test_Refund_SumsMultipleSharesOfSamePayer() (gas: 453052)
+Suite result: ok. 9 passed; 0 failed; 0 skipped; finished in 1.24s (34.13ms CPU time)
+
+Ran 15 tests for test/ChipIn.t.sol:ChipInPayTest
+[PASS] test_Pay_AssignedSharePullsExactAmountAndEmits() (gas: 384802)
+[PASS] test_Pay_ExcessAllowanceOnlyPullsShare() (gas: 392230)
+[PASS] test_Pay_LastShareMarksFundedAndEmits() (gas: 467010)
+[PASS] test_Pay_OpenShareAssignsPayer() (gas: 348501)
+[PASS] test_Pay_RevertsAtDeadline() (gas: 303853)
+[PASS] test_Pay_RevertsDoublePaySameShare() (gas: 397706)
+[PASS] test_Pay_RevertsNotYourShare() (gas: 298728)
+[PASS] test_Pay_RevertsOnUnknownBill() (gas: 264400)
+[PASS] test_Pay_RevertsOnUnknownShare() (gas: 260521)
+[PASS] test_Pay_RevertsSecondTakerOfOpenShare() (gas: 378631)
+[PASS] test_Pay_RevertsWhenBillFunded() (gas: 499983)
+[PASS] test_Pay_RevertsWithInsufficientBalance() (gas: 370036)
+[PASS] test_Pay_RevertsWithoutAllowance() (gas: 352295)
+[PASS] test_Pay_SamePayerCanPayTwoDifferentShares() (gas: 444524)
+[PASS] test_Pay_SucceedsOneSecondBeforeDeadline() (gas: 371090)
+Suite result: ok. 15 passed; 0 failed; 0 skipped; finished in 3.19s (54.69ms CPU time)
+
+Ran 4 tests for test/ChipIn.t.sol:ChipInFuzzTest
+[PASS] testFuzz_CreateBill_TotalIsSumAndCapEnforced(uint256[5]) (runs: 256, μ: 294247, ~: 298099)
+[PASS] testFuzz_EqualSplit_SumsToTotal(uint256,uint8) (runs: 256, μ: 9654, ~: 6986)
+[PASS] testFuzz_Lifecycle_PartialThenRefund(uint8,uint8,uint256,uint256) (runs: 256, μ: 893465, ~: 577178)
+[PASS] testFuzz_Lifecycle_PayAllThenRelease(uint8,uint256,uint256) (runs: 256, μ: 1780321, ~: 1189459)
+Suite result: ok. 4 passed; 0 failed; 0 skipped; finished in 3.37s (8.90s CPU time)
+
+Ran 11 test suites in 3.45s (7.99s CPU time): 66 tests passed, 0 failed, 4 skipped (70 total tests)

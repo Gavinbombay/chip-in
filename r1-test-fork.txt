@@ -1,0 +1,15 @@
+No files changed, compilation skipped
+
+Ran 1 test for test/ChipIn.t.sol:ChipInPayTest
+[PASS] test_Pay_Blocklist_RevertsForBlockedPayer() (gas: 483809)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 1.70s (185.70ms CPU time)
+
+Ran 1 test for test/ChipIn.t.sol:ChipInRefundTest
+[PASS] test_Refund_Blocklist_BlockedContributorDoesNotBlockOthers() (gas: 405682)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 1.70s (185.85ms CPU time)
+
+Ran 1 test for test/ChipIn.t.sol:ChipInReleaseTest
+[PASS] test_Release_Blocklist_RevertsForBlockedPayee_FundsStayHeld() (gas: 919263)
+Suite result: ok. 1 passed; 0 failed; 0 skipped; finished in 2.60s (1.09s CPU time)
+
+Ran 3 test suites in 2.71s (6.00s CPU time): 3 tests passed, 0 failed, 0 skipped (3 total tests)

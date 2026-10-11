@@ -1,0 +1,7 @@
+[PASS] test_Gas_Figures() (gas: 1832477)
+  gas deploy 1063672
+  gas createBill 2 shares 228215
+  gas pay first share 98148
+  gas pay last share (funds) 109426
+  gas release 49071
+  gas refund 20266
