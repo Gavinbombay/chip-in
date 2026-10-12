@@ -54,3 +54,23 @@ Deployed to `0x5FbDB2315678afecb367f032d93F642f64180aa3`. Chain id `5042002`. Vi
 ## Identity
 
 The decided GitHub account is `Gavinbombay` for R5 to resolve. The `⟦GITHUB_ACCOUNT⟧` slot in the page is left as written.
+
+## R4 compiler pin
+
+`solc_version` was set to `0.8.36` and `FOUNDRY_PROFILE=arc arc-forge build --force` exited 1. Solc 0.8.36 is cached at `~/.svm/0.8.36/solc-0.8.36` (`0.8.36+commit.8a079791`). The compiler never reached codegen. Every file uses an exact pragma:
+
+```
+Error: Encountered invalid solc version in src/ChipIn.sol: No solc version exists that matches the version requirement: =0.8.37
+Encountered invalid solc version in test/ArcProbe.t.sol: No solc version exists that matches the version requirement: =0.8.37
+Encountered invalid solc version in test/ChipIn.t.sol: No solc version exists that matches the version requirement: =0.8.37
+Encountered invalid solc version in test/Gas.t.sol: No solc version exists that matches the version requirement: =0.8.37
+Encountered invalid solc version in test/mocks/MockUSDC.sol: No solc version exists that matches the version requirement: =0.8.37
+```
+
+Contract source was not edited. `foundry.toml` was restored to `solc_version = "0.8.37"` (sha16 `bb4143195ed29ee7`). ABI and bytecode hashes are unchanged, so the reference ABI was not regenerated. The suite was not re-run. No second deploy.
+
+Flattened Blockscout verification of the existing contract was accepted and then failed. GUID `a24184e58e30d9b97ec28084d27f9f1cfe1e964b6accd7eb` with `v0.8.37+commit.f401782d`, and GUID `a24184e58e30d9b97ec28084d27f9f1cfe1e964b6accd7fb` with `v0.8.36+commit.8a079791`. Both status reads returned `Fail - Unable to verify`.
+
+Sourcify v2 verified the same address. verificationId `a96967ef-a9b3-4801-b859-e1c61a8e983e`, matchId `55988963`, verifiedAt `2026-10-12T12:52:21Z`, compiler `0.8.37+commit.f401782d`, contract `src/ChipIn.sol:ChipIn`. `match`, `creationMatch`, and `runtimeMatch` are all `match`. The job's Blockscout push returned `Explorer verification request failed (400): "Bad request"`.
+
+A later explorer read (2026-10-12, after that job) shows the source on Blockscout: `is_verified` true, name `ChipIn`, compiler `0.8.37+commit.f401782d`, evm `osaka`, optimizer on, 200 runs, constructor args `25000000` and `2592000`, `verified_at` `2026-10-12T12:53:09.664645Z`. The same read has `is_partially_verified` true, `is_fully_verified` false, `creation_status` success, and `is_changed_bytecode` false. Source is served from `src/ChipIn.sol` and contains `contract ChipIn`.

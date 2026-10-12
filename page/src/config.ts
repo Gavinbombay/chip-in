@@ -6,13 +6,13 @@ import { ARC_MAINNET_ID, ARC_TESTNET_ID, type ArcChainId } from './chains'
 
 export const KNOWN_DEPLOYMENTS: Record<ArcChainId, Address | null> = {
   [ARC_MAINNET_ID]: null,
-  [ARC_TESTNET_ID]: null,
+  [ARC_TESTNET_ID]: '0xa24184E58e30D9b97EC28084d27f9F1Cfe1E964B',
 }
 
 /** Demo bills to show on the home page, per chain. Filled in after the demo transactions. */
 export const DEMO_BILLS: Record<ArcChainId, { billId: bigint; label: string }[]> = {
   [ARC_MAINNET_ID]: [],
-  [ARC_TESTNET_ID]: [],
+  [ARC_TESTNET_ID]: [{ billId: 1n, label: 'covered and released' }, { billId: 2n, label: 'short and refunded' }],
 }
 
 /** Which chain the home page targets by default. */
