@@ -37,6 +37,38 @@ import {
 import { currentChainId, describeWalletError, discoverWallets, ensureChain, requestAccounts, walletClientFor, type InjectedWallet } from './wallet'
 import { feeOverrides, prepareApprove, prepareCreateBill, preparePay, prepareRefund, prepareRelease } from './writes'
 
+
+// Static hero markup (visual only, no data).
+const HERO_HTML = `
+<div class="hero-grid">
+  <div class="hero-copy">
+    <span class="eyebrow">Live on Arc mainnet</span>
+    <h1 class="hero-title">Split the bill.<br><span>Settle in USDC.</span></h1>
+    <p class="hero-sub">On Arc, USDC is the gas, so nobody needs a second token. If the bill doesn't fill by the deadline, everyone gets refunded.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" data-cta="demo" href="#">Try a demo bill</a>
+      <a class="btn btn-ghost" data-cta="source" href="#" target="_blank" rel="noopener">View source</a>
+    </div>
+  </div>
+  <div class="hero-art" aria-hidden="true">
+    <div class="receipt">
+      <div class="r-head"><span class="r-title">Dinner · Bill 1</span><span class="r-pill">0.75 USDC</span></div>
+      <div class="r-line"></div><div class="r-line short"></div>
+      <div class="r-chips">
+        <span class="chip c1">A</span><span class="chip c2">B</span><span class="chip c3">C</span>
+      </div>
+      <div class="r-bar"><div></div></div>
+      <div class="r-foot"><span>3 of 3 chipped in</span><span class="r-ok">Released</span></div>
+    </div>
+    <span class="coin k1"></span><span class="coin k2"></span>
+  </div>
+</div>
+<ol class="hero-steps">
+  <li><span class="n">1</span><div><strong>Create</strong><span>Set the total, shares and deadline.</span></div></li>
+  <li><span class="n">2</span><div><strong>Friends chip in</strong><span>Each pays their share from their own wallet.</span></div></li>
+  <li><span class="n">3</span><div><strong>Released or refunded</strong><span>Paid in full goes to the payee; short gets refunded.</span></div></li>
+</ol>`
+
 // ---------------------------------------------------------------- state
 
 interface WalletState {
@@ -196,10 +228,13 @@ function renderHome() {
   renderWalletSlot(chainId)
   const contract = KNOWN_DEPLOYMENTS[chainId]
 
-  const intro = el('section', { class: 'panel' },
-    el('h1', { text: 'Split a bill in USDC on Arc' }),
-    el('p', { text: 'One person covers the bill. Everyone else chips in their share from their own wallet. When the bill is fully covered the money goes to the payee. If the deadline passes first, everyone takes their money back. On Arc, USDC pays the gas too, so nobody needs a second token.' }),
-  )
+  const intro = el('section', { class: 'hero' })
+  intro.innerHTML = HERO_HTML
+  const demoHref = contract && DEMO_BILLS[chainId].length > 0 ? formatBillLink(location.origin + location.pathname, { chainId, contract, billId: DEMO_BILLS[chainId][0]!.billId }) : null
+  const tryBtn = intro.querySelector<HTMLAnchorElement>('[data-cta="demo"]')!
+  if (demoHref) tryBtn.href = demoHref
+  else tryBtn.remove()
+  intro.querySelector<HTMLAnchorElement>('[data-cta="source"]')!.href = REPO_URL
 
   const open = el('section', { class: 'panel' },
     el('h2', { text: 'Open a bill link' }),
