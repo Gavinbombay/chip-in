@@ -436,6 +436,7 @@ async function renderBill(link: BillLink) {
     el('div', { class: 'row' }, el('span', { class: `badge ${cls}`, text: label }), el('span', { class: 'muted', text: bill.state === 'open' ? remaining(bill.deadline) : '' })),
     el('p', {}, el('strong', { text: `${formatUsdc(bill.paid)} of ${formatUsdc(bill.total)} USDC` }), el('span', { class: 'muted', text: ' covered' })),
     el('div', { class: 'progress', role: 'progressbar', 'aria-valuemin': '0', 'aria-valuemax': '100', 'aria-valuenow': String(pct) }, el('div', { style: `width:${pct}%` })),
+    el('p', { class: 'muted small', text: `${shares.filter((s) => s.paid).length} of ${shares.length} shares paid` }),
     el('p', { class: 'muted' }, 'Pays out to ', el('a', { class: 'mono', href: explorerAddressUrl(chain, bill.payee), target: '_blank', rel: 'noopener', text: bill.payee })),
     el('p', { class: 'muted', text: `Pay by ${fmtDeadline(bill.deadline)} (your local time).` }),
   )
@@ -450,6 +451,7 @@ async function renderBill(link: BillLink) {
 
   // actions
   const actions = el('section', { class: 'panel' }, el('h2', { text: 'Shares' }))
+  const tableWrap = el('div', { class: 'table-wrap' })
   const table = el('table', {}, el('thead', {}, el('tr', {}, el('th', { text: '#' }), el('th', { text: 'Who' }), el('th', { text: 'Amount' }), el('th', { text: 'Status' }))))
   const tbody = el('tbody')
   const me = state.wallet?.account
@@ -491,16 +493,17 @@ async function renderBill(link: BillLink) {
     const who = s.paid && isOpen ? '—' : isOpen ? 'Anyone' : mine ? 'You' : short(s.payer)
     const st = el('td')
     if (s.paid) st.append(el('span', { class: 'badge ok', text: 'Paid' }))
-    else if (bill.state !== 'open') st.append(el('span', { class: 'badge', text: 'Unpaid' }))
+    else if (bill.state !== 'open') st.append(el('span', { class: 'badge open', text: 'Unpaid' }))
     else if (isOpen || mine) {
       const b = el('button', { class: 'primary', type: 'button', text: `Pay ${formatUsdc(s.amount)}` })
       b.addEventListener('click', () => payShare(i))
       st.append(b)
-    } else st.append(el('span', { class: 'badge', text: 'Waiting' }))
+    } else st.append(el('span', { class: 'badge open', text: 'Waiting' }))
     tbody.append(el('tr', {}, el('td', { text: String(i + 1) }), el('td', { class: 'mono', title: isOpen ? '' : s.payer, text: who }), el('td', { text: `${formatUsdc(s.amount)} USDC` }), st))
   })
   table.append(tbody)
-  actions.append(table)
+  tableWrap.append(table)
+  actions.append(tableWrap)
 
   if (bill.state === 'open' && me && onRight) {
     const mine = mySharesToPay(shares, me)
@@ -572,7 +575,14 @@ async function renderBill(link: BillLink) {
 
 function render() {
   const parsed = parseBillLink(location.search)
-  $footLinks.replaceChildren(el('a', { href: REPO_URL, target: '_blank', rel: 'noopener', text: 'Source' }))
+  const footChain = chainById(parsed.ok ? parsed.link.chainId : DEFAULT_CHAIN_ID)
+  const footContract = parsed.ok ? parsed.link.contract : KNOWN_DEPLOYMENTS[DEFAULT_CHAIN_ID]
+  $footLinks.replaceChildren(
+    el('span', { text: footChain?.id === ARC_MAINNET_ID ? 'Arc mainnet' : (footChain?.name ?? 'Arc') }),
+    ...(footChain && footContract ? [' · ', el('a', { href: explorerAddressUrl(footChain, footContract), target: '_blank', rel: 'noopener', text: 'Contract' })] : []),
+    ' · ',
+    el('a', { href: REPO_URL, target: '_blank', rel: 'noopener', text: 'Source' }),
+  )
   if (parsed.ok) {
     void renderBill(parsed.link)
   } else if (parsed.reason !== 'empty') {
